@@ -124,10 +124,6 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		handlePadMessageOfResult();
 	}
 
-	@Override
-	public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-		super.onLazyInitView(savedInstanceState);
-	}
 
 	public void setBean(CheckPadEventBean mBean) {
 		this.mBean = mBean;
