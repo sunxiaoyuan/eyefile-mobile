@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnimaImageView">
+        <attr name="auto_play" format="boolean"></attr>
+    </declare-styleable>
+    <!--AutoPhotoLayout-->
+    <declare-styleable name="camera_flow_layout">
+        <attr name="max_count" format="integer" />
+        <attr name="item_margin" format="integer" />
+        <attr name="line_count" format="integer" />
+        <attr name="icon_size" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="LargeTouchableAreaView">
+        <attr name="addition" format="dimension" />
+        <attr name="additionBottom" format="dimension" />
+        <attr name="additionLeft" format="dimension" />
+        <attr name="additionRight" format="dimension" />
+        <attr name="additionTop" format="dimension" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:lta="http://schemas.android.com/apk/res-auto"
+    android:background="#EFEFF4"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <com.simon.margaret.ui.largetouchable.LargeTouchableAreasButton
+            android:id="@+id/btn_conn_back"
+            android:layout_width="10dp"
+            android:layout_height="18dp"
+            android:background="@mipmap/back"
+            lta:addition="30dp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="设备连接"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:id="@+id/v_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/tool_bar_shadow" />
+
+    <TextView
+        android:id="@+id/tv_conn_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_shadow"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:text="已连接的设备"
+        android:textColor="#919192"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tv_conn_stat_off"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_conn_connected"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="未连接"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:id="@+id/ll_conn_stat_on"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tv_conn_connected"
+        android:background="@android:color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_conn_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="hdfiuhsiupfrdt"
+            android:textColor="@color/mainColor"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/tv_conn_disconnect"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="断开"
+            android:background="@drawable/border_conn_disconnect"
+            android:textColor="@color/mainColor"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_conn_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_conn_stat_off"
+        android:background="@android:color/transparent"
+        android:padding="10dp"
+        android:text="设备连接方法"
+        android:textColor="#919192"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:id="@+id/ll_conn_method_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_conn_method"
+        android:background="@android:color/white">
+
+        <!-- 切换tab bar -->
+        <LinearLayout
+            android:id="@+id/ll_conn_method_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_choose_qr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingHorizontal="50dp">
+
+                <TextView
+                    android:id="@+id/tv_choose_qr"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="扫码连接"
+                    android:textColor="@color/mainColor"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:id="@+id/v_choose_qr"
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/mainColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_choose_manual"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingHorizontal="50dp">
+
+                <TextView
+                    android:id="@+id/tv_choose_manual"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="手动连接"
+                    android:textColor="@color/mainColor"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:id="@+id/v_choose_manual"
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/mainColor" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/v_list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_conn_method_tab"
+            android:layout_marginLeft="15dp"
+            android:background="#EFEFF4" />
+
+        <!-- 扫码连接 -->
+        <LinearLayout
+            android:id="@+id/ll_conn_method_qr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_list_bg"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="请在检查设备上打开二维码，"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="点击下方按钮进行连接："
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/btn_conn_qr"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_conn_qr"
+                android:text="扫码连接"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+
+        </LinearLayout>
+
+        <!-- 手动连接 -->
+        <LinearLayout
+            android:id="@+id/ll_conn_method_manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_list_bg"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="请手动输入检查设备的IP地址，"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="进行手动连接："
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/et_conn_manual"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_conn_ip"
+                android:hint="请输入IP地址"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:textColor="#999999"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/btn_conn_manual"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/border_conn_qr"
+                android:text="连接"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
