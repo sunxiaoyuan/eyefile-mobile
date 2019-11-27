@@ -32,20 +32,24 @@ public class EyeSightCheckManualDelegate extends BottomItemDelegate {
 
 	@Override
 	public Object setLayout() {
-		return R.layout.delegate_eyesight_check;
+		return R.layout.delegate_hyber_signin;
 	}
 
 	@Override
 	public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
 		final WebDelegateImpl delegate =
-				WebDelegateImpl.create(Margaret.getConfiguration(ConfigKeys.WEB_HOST) + "/phone/#/clinic");
+				WebDelegateImpl.create(Margaret.getConfiguration(ConfigKeys.WEB_HOST) + "/phone/#/sight");
 		delegate.setTopDelegate(EyeSightCheckManualDelegate.this.getParentDelegate());
 		getSupportDelegate().loadRootFragment(R.id.web_signin_container, delegate);
 
 		// 处理页面加载完成回调
 		CallbackManager.getInstance()
 				.addCallback(CallbackType.ON_WEBVIEW_READY_SIGHT, webView -> currentWebView = (WebView) webView);
+
+		// 处理返回上一页回调
+		CallbackManager.getInstance()
+				.addCallback(CallbackType.ON_BACK_SIGHT_CHECK, args -> getSupportDelegate().pop());
 	}
 
 	@Override
@@ -57,6 +61,11 @@ public class EyeSightCheckManualDelegate extends BottomItemDelegate {
 			String params = bean.getStudentId() + "," + bean.getEtaskId();
 			currentWebView.post(() -> currentWebView.loadUrl("javascript:onSightCheckManual('" + params + "')"));
 		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
 	}
 
 	@Override

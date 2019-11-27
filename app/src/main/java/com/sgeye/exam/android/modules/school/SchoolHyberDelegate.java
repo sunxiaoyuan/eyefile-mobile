@@ -10,8 +10,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
+import com.sgeye.exam.android.camera.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
+import com.sgeye.exam.android.modules.check.EyeSightCheckDelegate;
 import com.sgeye.exam.android.modules.scanner.ScannerDelegate;
 import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;
@@ -21,6 +23,7 @@ import com.simon.margaret.ui.camera.MargaretCamera;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
 import com.simon.margaret.util.log.MargaretLogger;
+import com.zhangke.websocket.WebSocketHandler;
 
 /**
  * Created by apple on 2019/9/4.
@@ -51,6 +54,21 @@ public class SchoolHyberDelegate extends BottomItemDelegate {
 
 		handleTakePhoto();
 
+		handleEysSightCheck();
+
+	}
+
+	private void handleEysSightCheck() {
+		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_SIGHT_CHECK_SCHOOL, args -> {
+
+			CheckPadEventBean bean = (CheckPadEventBean) args;
+			// on - 进入视力检查页面
+			EyeSightCheckDelegate delegate = new EyeSightCheckDelegate();
+			delegate.setBean(bean);
+			getParentDelegate().getSupportDelegate().start(delegate);
+			// 通知pad页面跳转
+			WebSocketHandler.getDefault().send(AppConstants.SOCKET_SEND_CHANGE_PAGE);
+		});
 	}
 
 	private void handleTakePhoto() {

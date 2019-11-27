@@ -9,14 +9,24 @@ public class CheckPadEventBean {
 	private String action;
 	private String studentId;
 	private String etaskId;
+	private String from;
 
 	public CheckPadEventBean() {
 	}
 
-	public CheckPadEventBean(String action, String studentId, String etaskId) {
+	public CheckPadEventBean(String action, String studentId, String etaskId, String from) {
 		this.action = action;
 		this.studentId = studentId;
 		this.etaskId = etaskId;
+		this.from = from;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
 	public String getAction() {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -61,28 +62,44 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 		// 检查Pad状态，并且进行页面跳转
 		handlePadStatCheck();
 
+		// 处理自动检查
+		handleEysSightCheck();
+
+	}
+
+	private void handleEysSightCheck() {
+		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_SIGHT_CHECK_CLINIC, args -> {
+
+			CheckPadEventBean bean = (CheckPadEventBean) args;
+			// on - 进入视力检查页面
+			EyeSightCheckDelegate delegate = new EyeSightCheckDelegate();
+			delegate.setBean(bean);
+			getParentDelegate().getSupportDelegate().start(delegate);
+			// 通知pad页面跳转
+			WebSocketHandler.getDefault().send(AppConstants.SOCKET_SEND_CHANGE_PAGE);
+		});
 	}
 
 	private void handlePadStatCheck() {
-		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_CHECK_PAD, args -> {
-
-			CheckPadEventBean bean = (CheckPadEventBean) args;
-
-			// 检查socket连接状态
-			if (WebSocketHandler.getDefault().isConnect()) {
-				// on - 进入视力检查页面
-				EyeSightCheckDelegate delegate = new EyeSightCheckDelegate();
-				delegate.setBean(bean);
-				getParentDelegate().getSupportDelegate().start(delegate);
-				// 通知pad页面跳转
-				WebSocketHandler.getDefault().send(AppConstants.SOCKET_SEND_CHANGE_PAGE);
-			} else {
-				// off - 进入视力检查(手动)页面
-				EyeSightCheckManualDelegate delegate = new EyeSightCheckManualDelegate();
-				delegate.setBean(bean);
-				getParentDelegate().getSupportDelegate().start(delegate);
-			}
-		});
+//		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_CHECK_PAD, args -> {
+//
+//			CheckPadEventBean bean = (CheckPadEventBean) args;
+//
+//			// 检查socket连接状态
+//			if (WebSocketHandler.getDefault().isConnect()) {
+//				// on - 进入视力检查页面
+//				EyeSightCheckDelegate delegate = new EyeSightCheckDelegate();
+//				delegate.setBean(bean);
+//				getParentDelegate().getSupportDelegate().start(delegate);
+//				// 通知pad页面跳转
+//				WebSocketHandler.getDefault().send(AppConstants.SOCKET_SEND_CHANGE_PAGE);
+//			} else {
+//				// off - 进入视力检查(手动)页面
+//				EyeSightCheckManualDelegate delegate = new EyeSightCheckManualDelegate();
+//				delegate.setBean(bean);
+//				getParentDelegate().getSupportDelegate().start(delegate);
+//			}
+//		});
 	}
 
 	private void handleTakePhoto() {

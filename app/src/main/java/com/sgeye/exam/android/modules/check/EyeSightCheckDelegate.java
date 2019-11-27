@@ -294,6 +294,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 	// 返回
 	@OnClick(R2.id.btn_check_back)
 	public void back() {
+		WebSocketHandler.getDefault().send("onOpen:false");
 		getSupportDelegate().pop();
 	}
 

@@ -6,8 +6,9 @@ package com.simon.margaret.util.callback;
 
 public enum CallbackType {
     ON_CROP,
-    TAG_OPEN_PUSH,
-    TAG_STOP_PUSH,
+
+    // 路由相关
+    ON_BACK_SIGHT_CHECK,
 
     // 网页调用原生方法相关
     ON_JS_CALL_NATIVE_QR_CLINIC,
@@ -15,7 +16,8 @@ public enum CallbackType {
     ON_JS_CALL_NATIVE_LOGIN,
     ON_JS_CALL_NATIVE_TAKE_PHOTO_CLINIC,
     ON_JS_CALL_NATIVE_TAKE_PHOTO_SCHOOL,
-    ON_JS_CALL_NATIVE_CHECK_PAD,
+    ON_JS_CALL_NATIVE_SIGHT_CHECK_CLINIC,
+    ON_JS_CALL_NATIVE_SIGHT_CHECK_SCHOOL,
 
     // webview相关
     ON_WEBVIEW_READY_CLINIC,
