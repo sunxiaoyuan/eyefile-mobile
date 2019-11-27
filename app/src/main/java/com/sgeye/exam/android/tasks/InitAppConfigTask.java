@@ -23,7 +23,7 @@ public class InitAppConfigTask extends MainTask {
 	public void run() {
 
 		Margaret.init(mContext)
-				.withApiHost("http://api.okjing.net")
+				.withApiHost("https://api.okjing.net")
 				.withWebHost("https://eyefile.cn")
  				.withWebEvent("callNativeCamera", new CallNativeCameraEvent())
 				.withWebEvent("callNativeUploadPic", new CallNativeUploadPicEvent())
