@@ -42,8 +42,8 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 	@Override
 	public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
-		final WebDelegateImpl delegate = WebDelegateImpl.create("http://test.eyefile.cn/phone/#/clinic");
-//		final WebDelegateImpl delegate = WebDelegateImpl.create("http://192.168.31.161:7783/phone/#/clinic");
+		final WebDelegateImpl delegate =
+				WebDelegateImpl.create(Margaret.getConfiguration(ConfigKeys.WEB_HOST) + "/phone/#/clinic");
 		delegate.setTopDelegate(ClinicHyberDelegate.this.getParentDelegate());
 		getSupportDelegate().loadRootFragment(R.id.web_signin_container, delegate);
 
@@ -96,7 +96,7 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 					Uri picPath = (Uri) args;
 					// 上传图片
 					RestClient.builder()
-							.url(Margaret.getConfiguration(ConfigKeys.IMAGE_UPLOAD_URL))
+							.url(Margaret.getConfiguration(ConfigKeys.API_HOST) + "/efile/image")
 							.loader(_mActivity)
 							.file(picPath.getPath())
 							.success(response -> {

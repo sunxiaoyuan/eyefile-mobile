@@ -74,8 +74,8 @@ public class SignInHyberDelegate extends MargaretDelegate {
 	@Override
 	public void onLazyInitView(@Nullable Bundle savedInstanceState) {
 		super.onLazyInitView(savedInstanceState);
-		final WebDelegateImpl delegate = WebDelegateImpl.create("http://test.eyefile.cn/phone/#/login");
-//		final WebDelegateImpl delegate = WebDelegateImpl.create("http://192.168.31.161:7783/phone/#/login");
+		final WebDelegateImpl delegate =
+				WebDelegateImpl.create(Margaret.getConfiguration(ConfigKeys.WEB_HOST) + "/phone/#/login");
 		delegate.setTopDelegate(SignInHyberDelegate.this.getParentDelegate());
 		getSupportDelegate().loadRootFragment(R.id.web_signin_container, delegate);
 	}

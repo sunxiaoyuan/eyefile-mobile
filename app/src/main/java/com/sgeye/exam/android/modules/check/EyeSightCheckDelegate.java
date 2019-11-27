@@ -371,7 +371,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		// 上传
 		RestClient.builder()
 				.raw(paramsStr)
-				.url("http://api2.okjing.net/efile/app/visual")
+				.url(AppConstants.API_HOST + "/efile/app/visual")
 				.success(response -> {
 					JSONObject parseObj = JSON.parseObject(response);
 					int code = (int) parseObj.get("code");
