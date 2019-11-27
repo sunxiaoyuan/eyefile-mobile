@@ -14,6 +14,7 @@ import com.sgeye.exam.android.camera.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.EyeSightCheckDelegate;
+import com.sgeye.exam.android.modules.check.EyeSightCheckManualDelegate;
 import com.sgeye.exam.android.modules.my.ConDeviceDelegate;
 import com.sgeye.exam.android.modules.scanner.ScannerDelegate;
 import com.simon.margaret.app.ConfigKeys;
@@ -76,8 +77,9 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 				// 通知pad页面跳转
 				WebSocketHandler.getDefault().send(AppConstants.SOCKET_SEND_CHANGE_PAGE);
 			} else {
-				// off - 进入连接设备页面
-				ConDeviceDelegate delegate = new ConDeviceDelegate();
+				// off - 进入视力检查(手动)页面
+				EyeSightCheckManualDelegate delegate = new EyeSightCheckManualDelegate();
+				delegate.setBean(bean);
 				getParentDelegate().getSupportDelegate().start(delegate);
 			}
 		});

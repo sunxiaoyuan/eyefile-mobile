@@ -20,6 +20,7 @@ public enum CallbackType {
     // webview相关
     ON_WEBVIEW_READY_CLINIC,
     ON_WEBVIEW_READY_SCHOOL,
+    ON_WEBVIEW_READY_SIGHT,
 
     ON_MESSAGE_CHANGE_LINE,
     ON_MESSAGE_RESULT,

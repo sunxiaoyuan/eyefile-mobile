@@ -77,6 +77,14 @@ public class WebViewClientImpl extends WebViewClient {
 				if (callback != null) {
 					callback.executeCallback(view);
 				}
+			} else if (url.endsWith("sight")){
+				@SuppressWarnings("unchecked")
+				final IGlobalCallback<WebView> callback = CallbackManager
+						.getInstance()
+						.getCallback(CallbackType.ON_WEBVIEW_READY_SIGHT);
+				if (callback != null) {
+					callback.executeCallback(view);
+				}
 			}
 		}
 
