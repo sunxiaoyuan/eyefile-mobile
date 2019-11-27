@@ -27,6 +27,7 @@ import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.list.ControlAdapter;
 import com.sgeye.exam.android.modules.check.list.ControlClickListener;
 import com.sgeye.exam.android.modules.check.list.ControlConverter;
+import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.net.RestClient;
 import com.simon.margaret.net.callback.IError;
@@ -371,7 +372,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		// 上传
 		RestClient.builder()
 				.raw(paramsStr)
-				.url(AppConstants.API_HOST + "/efile/app/visual")
+				.url(Margaret.getConfiguration(ConfigKeys.API_HOST) + "/efile/app/visual")
 				.success(response -> {
 					JSONObject parseObj = JSON.parseObject(response);
 					int code = (int) parseObj.get("code");
