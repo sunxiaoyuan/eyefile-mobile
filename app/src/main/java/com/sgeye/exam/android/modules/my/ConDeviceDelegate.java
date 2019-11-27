@@ -167,16 +167,20 @@ public class ConDeviceDelegate extends MargaretDelegate implements ObserverListe
 				connMethodQRLL.setVisibility(View.VISIBLE);
 				chooseQRTV.setTextColor(mChooseColor);
 				chooseQRView.setBackgroundColor(mChooseColor);
+				chooseQRView.setAlpha(1);
 				chooseManualTV.setTextColor(mUnChooseColor);
 				chooseManualView.setBackgroundColor(mUnChooseColor);
+				chooseManualView.setAlpha(0);
 				break;
 			case CHOOSE_MANUAL:
 				connMethodQRLL.setVisibility(View.GONE);
 				connMethodManualLL.setVisibility(View.VISIBLE);
 				chooseManualTV.setTextColor(mChooseColor);
 				chooseManualView.setBackgroundColor(mChooseColor);
+				chooseManualView.setAlpha(1);
 				chooseQRTV.setTextColor(mUnChooseColor);
 				chooseQRView.setBackgroundColor(mUnChooseColor);
+				chooseQRView.setAlpha(0);
 				break;
 			default:
 				break;
