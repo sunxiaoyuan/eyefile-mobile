@@ -6,7 +6,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import com.sgeye.exam.android.R;
-import com.sgeye.exam.android.camera.bean.CheckPadEventBean;
+import com.sgeye.exam.android.event.bean.CheckPadEventBean;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;

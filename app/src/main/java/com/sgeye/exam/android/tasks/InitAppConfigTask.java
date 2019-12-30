@@ -1,10 +1,12 @@
 package com.sgeye.exam.android.tasks;
 
-import com.sgeye.exam.android.camera.CallNativeBackEvent;
-import com.sgeye.exam.android.camera.CallNativeCameraEvent;
-import com.sgeye.exam.android.camera.CallNativeCheckPadEvent;
-import com.sgeye.exam.android.camera.CallNativeSightCheckEvent;
-import com.sgeye.exam.android.camera.CallNativeUploadPicEvent;
+import com.sgeye.exam.android.event.CallNativeBackEvent;
+import com.sgeye.exam.android.event.CallNativeCameraEvent;
+import com.sgeye.exam.android.event.CallNativeCheckPadEvent;
+import com.sgeye.exam.android.event.CallNativePrintEvent;
+import com.sgeye.exam.android.event.CallNativeSightCheckEvent;
+import com.sgeye.exam.android.event.CallNativeSignoutEvent;
+import com.sgeye.exam.android.event.CallNativeUploadPicEvent;
 import com.sgeye.exam.android.modules.signin.SignInSuccessEvent;
 import com.sgeye.exam.android.toast.CallNativeToastEvent;
 import com.simon.margaret.app.Margaret;
@@ -33,6 +35,8 @@ public class InitAppConfigTask extends MainTask {
 				.withWebEvent("callNativeCheckPad", new CallNativeCheckPadEvent()) // 检查pad、连接状态
 				.withWebEvent("callNativeBack", new CallNativeBackEvent()) // 调用原生返回
 				.withWebEvent("callNativeSightCheck", new CallNativeSightCheckEvent()) // 跳转自动检查页面
+				.withWebEvent("callNativePrint", new CallNativePrintEvent()) // 调用热敏打印机
+				.withWebEvent("callNativeSignout", new CallNativeSignoutEvent()) // 退出登录
 				.withJavascriptInterface("peanut")
 				.withInterceptor(new AddCookieInterceptor())
 				.withInterceptor(new BaseInterceptor())

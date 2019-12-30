@@ -25,6 +25,9 @@ import com.simon.margaret.observer.ObserverManager;
 import com.simon.margaret.util.storage.MargaretPreference;
 import com.zhangke.websocket.WebSocketHandler;
 
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -32,8 +35,16 @@ import butterknife.OnClick;
  * Created by apple on 2019/9/4.
  */
 
-public class MyDelegate extends BottomItemDelegate implements ObserverListener {
+public class MyDelegate extends BottomItemDelegate
+		implements ObserverListener, OnChangeRefrection, OnChangePrintSettings, OnChangeOptometry {
 
+	private int mRefrectionIndex = 0;
+	private int mPrintSettingsIndex = 0;
+	private int mOptometryIndex = 0;
+	private List<String> mRefractionList = Arrays.asList("伟伦", "索维", "莫廷", "其他");
+	private List<String> mPrintSettingList = Arrays.asList("不打印", "打印带回执", "打印不带回执");
+	private List<String> mOptometryList = Arrays.asList("拓普康", "索维", "尼德克",
+			"天乐", "新缘", "法里奥", "其他");
 
 	@BindView(R2.id.tv_my_method)
 	TextView methodTV;
@@ -50,6 +61,16 @@ public class MyDelegate extends BottomItemDelegate implements ObserverListener {
 	LinearLayout countMethodLL;
 	@BindView(R2.id.tv_my_conStat)
 	TextView myConStatTV;
+
+	@BindView(R2.id.tv_refraction_check)
+	TextView tv_refraction_check;
+
+	@BindView(R2.id.tv_print_settings)
+	TextView tv_print_settings;
+
+	@BindView(R2.id.tv_optometry)
+	TextView tv_optometry;
+
 
 	@Override
 	public Object setLayout() {
@@ -88,10 +109,10 @@ public class MyDelegate extends BottomItemDelegate implements ObserverListener {
 				nameTV.setText(name);
 			}
 			if (!StringUtils.isEmpty(phone)) {
-				phoneTV.setText(name);
+				phoneTV.setText(phone);
 			}
 			if (!StringUtils.isEmpty(account)) {
-				accountTV.setText(name);
+				accountTV.setText(account);
 			}
 			if ("0".equals(method)) {
 				methodTV.setText("对数记数法");
@@ -151,4 +172,39 @@ public class MyDelegate extends BottomItemDelegate implements ObserverListener {
 		getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
 	}
 
+	@OnClick(R2.id.ll_list_quguang)
+	public void changeRefractionCheck() {
+		RefractionCheckDialog.Builder builder = new RefractionCheckDialog.Builder(getContext());
+		builder.onChangeRefrection(this).distance(mRefrectionIndex).create().show();
+	}
+
+	@Override
+	public void onChangeDistance(int index) {
+		mRefrectionIndex = index;
+		tv_refraction_check.setText(mRefractionList.get(index));
+	}
+
+	@OnClick(R2.id.ll_list_print_settings)
+	public void changePrintSettings() {
+		PrintSettingsDialog.Builder builder = new PrintSettingsDialog.Builder(getContext());
+		builder.onChangePrintSettings(this).distance(mPrintSettingsIndex).create().show();
+	}
+
+	@Override
+	public void onChangePrintSettings(int index) {
+		mPrintSettingsIndex = index;
+		tv_print_settings.setText(mPrintSettingList.get(index));
+	}
+
+	@OnClick(R2.id.ll_list_pc_yanguang)
+	public void changeOptometry() {
+		OptometryDialog.Builder builder = new OptometryDialog.Builder(getContext());
+		builder.onChangeOptometry(this).distance(mOptometryIndex).create().show();
+	}
+
+	@Override
+	public void onChangeOptometry(int index) {
+		mOptometryIndex = index;
+		tv_optometry.setText(mOptometryList.get(index));
+	}
 }

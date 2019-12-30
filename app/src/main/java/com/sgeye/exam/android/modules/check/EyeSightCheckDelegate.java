@@ -6,12 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +17,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
 import com.sgeye.exam.android.R2;
-import com.sgeye.exam.android.camera.bean.CheckPadEventBean;
+import com.sgeye.exam.android.event.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.list.ControlAdapter;
@@ -30,9 +26,6 @@ import com.sgeye.exam.android.modules.check.list.ControlConverter;
 import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.net.RestClient;
-import com.simon.margaret.net.callback.IError;
-import com.simon.margaret.net.callback.IFailure;
-import com.simon.margaret.net.callback.ISuccess;
 import com.simon.margaret.ui.recycler.MultipleItemEntity;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
@@ -125,7 +118,6 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		handlePadMessageOfResult();
 	}
 
-
 	public void setBean(CheckPadEventBean mBean) {
 		this.mBean = mBean;
 	}
@@ -160,18 +152,19 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 	private void handlePadMessageOfResult() {
 		CallbackManager.getInstance().addCallback(CallbackType.ON_MESSAGE_RESULT, args -> {
 			String ret = (String) args;
-
-			if (mCurCheck <= 3) {
-				// 测试尚未完成，拿到结果，再界面上展示
-				updateCheckResult(mCurCheck, ret);
-				if (mCurCheck == 3) {
-					Toast.makeText(Margaret.getApplicationContext(),
-							mDistance == 2 ? "近视力检查完毕" : "远视力检查完毕",
-							Toast.LENGTH_SHORT).show();
-					mCurCheck = 0;
+			_mActivity.runOnUiThread(() -> {
+				if (mCurCheck <= 3) {
+					// 测试尚未完成，拿到结果，再界面上展示
+					updateCheckResult(mCurCheck, ret);
+					if (mCurCheck == 3) {
+						Toast.makeText(Margaret.getApplicationContext(),
+								mDistance == 2 ? "近视力检查完毕" : "远视力检查完毕",
+								Toast.LENGTH_SHORT).show();
+						mCurCheck = 0;
+					}
+					mCurCheck++;
 				}
-				mCurCheck++;
-			}
+			});
 			// 通知pad清空挑战记录
 			WebSocketHandler.getDefault().send("clear:1");
 		});
@@ -191,7 +184,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 			setCheckResultTVStat(rightNakeTV01, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(leftNakeTV02, CHECK_STAT_GOING, result);
 			Toast.makeText(Margaret.getApplicationContext(),
-					mDistance == 2 ? "右眼裸眼近视力检查完毕" : "右眼裸眼远视力检查完毕",
+					"右眼裸眼视力检查完毕，请遮盖右眼，进行左眼裸眼视力检查",
 					Toast.LENGTH_SHORT).show();
 			if (mDistance == 2) {
 				ucvaNearOd = result;
@@ -202,7 +195,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 			setCheckResultTVStat(leftNakeTV02, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(rightGlassTV03, CHECK_STAT_GOING, result);
 			Toast.makeText(Margaret.getApplicationContext(),
-					mDistance == 2 ? "左眼裸眼近视力检查完毕" : "左眼裸眼远视力检查完毕",
+					"左眼裸眼近视力检查完毕",
 					Toast.LENGTH_SHORT).show();
 			if (mDistance == 2) {
 				ucvaNearOs = result;
@@ -213,7 +206,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 			setCheckResultTVStat(rightGlassTV03, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(leftGlassTV04, CHECK_STAT_GOING, result);
 			Toast.makeText(Margaret.getApplicationContext(),
-					mDistance == 2 ? "右眼戴镜近视力检查完毕" : "右眼戴镜远视力检查完毕",
+					"右眼戴镜视力检查完毕，请遮盖右眼，进行左眼戴镜视力检查",
 					Toast.LENGTH_SHORT).show();
 			if (mDistance == 2) {
 				cvaNearOd = result;
@@ -223,7 +216,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		} else if (mCurCheck == 3) {
 			setCheckResultTVStat(leftGlassTV04, CHECK_STAT_DONE, result);
 			Toast.makeText(Margaret.getApplicationContext(),
-					mDistance == 2 ? "左眼戴镜近视力检查完毕" : "左眼戴镜远视力检查完毕",
+					"左眼戴镜近视力检查完毕",
 					Toast.LENGTH_SHORT).show();
 			if (mDistance == 2) {
 				cvaNearOs = result;

@@ -13,7 +13,7 @@ import com.simon.margaret.util.launchstarter.TaskDispatcher;
 /**
  * Created by apple on 2019/8/22.
  */
-// 测试账号 hlcs 761875
+// 测试账号 mhyk babyeye
 public class MainApp extends Application implements Application.ActivityLifecycleCallbacks {
 
 	@Override

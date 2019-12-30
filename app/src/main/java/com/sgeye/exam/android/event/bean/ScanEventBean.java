@@ -1,4 +1,4 @@
-package com.sgeye.exam.android.camera.bean;
+package com.sgeye.exam.android.event.bean;
 
 /**
  * Created by apple on 2019/11/25.

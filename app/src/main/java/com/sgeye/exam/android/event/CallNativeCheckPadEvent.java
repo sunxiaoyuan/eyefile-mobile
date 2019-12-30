@@ -1,4 +1,4 @@
-package com.sgeye.exam.android.camera;
+package com.sgeye.exam.android.event;
 
 import com.simon.margaret.delegates.web.event.Event;
 import com.zhangke.websocket.WebSocketHandler;

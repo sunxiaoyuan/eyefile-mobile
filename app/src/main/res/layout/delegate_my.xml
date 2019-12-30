@@ -27,9 +27,9 @@
     <View
         android:id="@+id/v_shadow"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="1dp"
         android:layout_below="@+id/toolbar"
-        android:background="@drawable/tool_bar_shadow" />
+        android:background="#EFEFF4" />
 
     <com.simon.margaret.util.customview.CircleImageView
         android:id="@+id/iv_my_avater"
@@ -50,7 +50,6 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="王医生"
         android:textColor="@color/mainColor"
         android:textSize="18sp"
         tools:ignore="HardcodedText" />
@@ -63,7 +62,6 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="HBFY01"
         android:textColor="#CDCFE1"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
@@ -76,25 +74,287 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="13121730921"
         android:textColor="#CDCFE1"
         android:textSize="12sp"
         tools:ignore="HardcodedText" />
 
     <View
-        android:id="@+id/v_bg1"
+        android:id="@+id/v_bg00"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@+id/tv_my_phone"
         android:background="#EFEFF4" />
 
+    <!--  电子视力表  -->
+    <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
+        android:id="@+id/ll_list_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_bg00"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        lta:addition="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="电子视力表"
+            android:textColor="#7D7D7D"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="未连接"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@mipmap/arrow"
+            android:textColor="#DEDEE0" />
+    </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
+
+    <View
+        android:id="@+id/v_bg0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_list_device"
+        android:layout_marginLeft="15dp"
+        android:background="#EFEFF4" />
+
+    <!--  屈光筛查仪  -->
+    <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
+        android:id="@+id/ll_list_quguang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_bg0"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        lta:addition="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="屈光筛查仪"
+            android:textColor="#7D7D7D"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_refraction_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="伟伦"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@mipmap/arrow"
+            android:textColor="#DEDEE0" />
+    </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
+
+    <View
+        android:id="@+id/v_bg1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_list_quguang"
+        android:layout_marginLeft="15dp"
+        android:background="#EFEFF4" />
+
+    <!--  电脑验光仪  -->
+    <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
+        android:id="@+id/ll_list_pc_yanguang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_bg1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        lta:addition="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="电脑验光仪"
+            android:textColor="#7D7D7D"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_optometry"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="拓普康"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@mipmap/arrow"
+            android:textColor="#DEDEE0" />
+    </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
+
+    <View
+        android:id="@+id/v_list_bg_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_list_pc_yanguang"
+        android:layout_marginLeft="15dp"
+        android:background="#EFEFF4" />
+
+    <!--  蓝牙打印机  -->
+    <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
+        android:id="@+id/ll_list_bluetoothe_printer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_list_bg_2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        lta:addition="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="蓝牙打印机"
+            android:textColor="#7D7D7D"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="未连接"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@mipmap/arrow"
+            android:textColor="#DEDEE0" />
+    </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
+
+    <View
+        android:id="@+id/v_list_bg_3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll_list_bluetoothe_printer"
+        android:layout_marginLeft="15dp"
+        android:background="#EFEFF4" />
+
+    <!--  打印设置  -->
+    <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
+        android:id="@+id/ll_list_print_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_list_bg_3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        lta:addition="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="7"
+            android:gravity="start"
+            android:text="打印设置"
+            android:textColor="#7D7D7D"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_print_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:text="不打印"
+            android:textColor="#515151"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@mipmap/arrow"
+            android:textColor="#DEDEE0" />
+    </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
+
+    <View
+        android:id="@+id/v_list_bg_4"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/ll_list_print_settings"
+        android:background="#EFEFF4" />
+
+    <!--  设备连接  -->
     <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
         android:id="@+id/ll_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/v_bg1"
-        android:layout_marginBottom="12dp"
+        android:layout_below="@+id/v_list_bg_4"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         lta:addition="20dp">
@@ -142,13 +402,14 @@
         android:layout_marginLeft="15dp"
         android:background="#EFEFF4" />
 
+    <!--  视力计数法  -->
     <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
         android:id="@+id/ll_list2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/v_list_bg"
-        android:layout_marginBottom="12dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         lta:addition="20dp">
@@ -195,7 +456,7 @@
         android:layout_below="@+id/ll_list2"
         android:background="#EFEFF4" />
 
-
+    <!--  退出登录  -->
     <Button
         android:id="@+id/btn_my_logout"
         android:layout_width="match_parent"
@@ -214,6 +475,5 @@
         android:layout_height="1000dp"
         android:layout_below="@+id/btn_my_logout"
         android:background="#EFEFF4" />
-
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import com.simon.margaret.delegates.web.WebDelegateImpl;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,10 +47,12 @@ public class SignInHyberDelegate extends MargaretDelegate {
 				Map<String, Object> userInfoMap = new HashMap<>();
 				final String cookieStr = manager.getCookie(webHost);
 				if (cookieStr != null && !cookieStr.equals("")) {
-					String[] split = cookieStr.split(";");
+					String urlDecode= URLDecoder.decode(cookieStr);
+					String[] split = urlDecode.split(";");
 					for (String str : split) {
 						String[] kv = str.split("=");
-						userInfoMap.put(kv[0], kv[1]);
+
+						userInfoMap.put(kv[0].trim(), kv[1]);
 					}
 					JSONObject json = new JSONObject(userInfoMap);
 					UserInfo userInfo = JSON.toJavaObject(json, UserInfo.class);

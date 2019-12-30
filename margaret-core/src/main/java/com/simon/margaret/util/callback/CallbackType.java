@@ -9,6 +9,7 @@ public enum CallbackType {
 
     // 路由相关
     ON_BACK_SIGHT_CHECK,
+    ON_BACK_SIGN_OUT,
 
     // 网页调用原生方法相关
     ON_JS_CALL_NATIVE_QR_CLINIC,

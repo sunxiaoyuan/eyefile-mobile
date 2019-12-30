@@ -61,16 +61,13 @@ public class MainActivity extends ProxyActivity implements SocketListener {
 				// 已经登录
 				FIRST_DELEGATE = new BottomDelegate();
 			}
-
 			@Override
 			public void onNotSignIn() {
 				// 没有登录
 				FIRST_DELEGATE = new SignInHyberDelegate();
 			}
 		});
-
 		return FIRST_DELEGATE;
-
 	}
 
 	@Override

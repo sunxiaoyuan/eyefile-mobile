@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
-import com.sgeye.exam.android.camera.bean.CheckPadEventBean;
+import com.sgeye.exam.android.event.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.EyeSightCheckDelegate;
@@ -22,7 +22,6 @@ import com.simon.margaret.net.RestClient;
 import com.simon.margaret.ui.camera.MargaretCamera;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
-import com.simon.margaret.util.log.MargaretLogger;
 import com.zhangke.websocket.WebSocketHandler;
 
 /**
