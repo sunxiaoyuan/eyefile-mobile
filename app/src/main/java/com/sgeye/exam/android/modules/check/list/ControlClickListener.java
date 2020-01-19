@@ -18,7 +18,7 @@ import com.zhangke.websocket.WebSocketHandler;
 
 public class ControlClickListener extends SimpleClickListener {
 
-	private int mCurrentIndex = 0;
+	private int mCurrentIndex = 9;
 
 	@Override
 	public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

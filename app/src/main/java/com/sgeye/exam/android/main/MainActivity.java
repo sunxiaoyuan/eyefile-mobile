@@ -23,6 +23,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.sgeye.exam.android.R;
 import com.sgeye.exam.android.modules.bottom.BottomDelegate;
+import com.sgeye.exam.android.modules.check.EyeSightCheckDelegate;
 import com.sgeye.exam.android.modules.signin.SignInHyberDelegate;
 import com.simon.margaret.activities.ProxyActivity;
 import com.simon.margaret.app.AccountManager;
@@ -68,6 +69,7 @@ public class MainActivity extends ProxyActivity implements SocketListener {
 			}
 		});
 		return FIRST_DELEGATE;
+//		return new EyeSightCheckDelegate();
 	}
 
 	@Override

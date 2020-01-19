@@ -27,7 +27,7 @@ public class ControlConverter extends DataConverter {
 					.setField(MultipleFields.ITEM_TYPE, ControlItemType.NORMAL)
 					.setField(ControlFields.SELECTION, ItemSectionType.UNSELECTED)
 					.build();
-			if (i == 0) {  // 默认选中2.0
+			if (i == 9) {  // 默认选中0.8
 				entity.setField(ControlFields.SELECTION, ItemSectionType.SELECTED);
 			}
 			ENTITIES.add(entity);

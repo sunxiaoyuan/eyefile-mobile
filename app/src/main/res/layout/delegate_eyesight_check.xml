@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:text="左眼戴镜"
+                android:text="右眼戴镜"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -200,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:text="右眼戴镜"
+                android:text="左眼戴镜"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />

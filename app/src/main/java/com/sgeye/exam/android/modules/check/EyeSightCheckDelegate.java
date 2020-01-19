@@ -1,6 +1,9 @@
 package com.sgeye.exam.android.modules.check;
 
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,6 +29,7 @@ import com.sgeye.exam.android.modules.check.list.ControlConverter;
 import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.net.RestClient;
+import com.simon.margaret.ui.loader.MargaretLoader;
 import com.simon.margaret.ui.recycler.MultipleItemEntity;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
@@ -72,7 +76,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 
 	private ControlConverter mConverter = new ControlConverter();
 	private ControlAdapter mAdapter;
-	private int mCurIndex = 0;
+	private int mCurIndex = 9;
 	private int mCurCheck = 0;
 
 	@BindView(R2.id.tv_check_right_nake)
@@ -101,6 +105,8 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 	@BindView(R2.id.rv_check_control)
 	RecyclerView controlRecyclerView;
 
+	ControlClickListener mControlClickListener = new ControlClickListener();
+
 	@Override
 	public Object setLayout() {
 		return R.layout.delegate_eyesight_check;
@@ -111,7 +117,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		initCheckResult();
 		initList();
 		// 处理pad发来的换行通知
-		// handlePadMessageOfChangeLine();
+		handlePadMessageOfChangeLine();
 		// 行数变更回调
 		handleUserChangeLine();
 		// 拿到测试结果回调
@@ -160,6 +166,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 						Toast.makeText(Margaret.getApplicationContext(),
 								mDistance == 2 ? "近视力检查完毕" : "远视力检查完毕",
 								Toast.LENGTH_SHORT).show();
+						// 清空pad的挑战纪录，手机与pad都回归到0.8
 						mCurCheck = 0;
 					}
 					mCurCheck++;
@@ -180,12 +187,11 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 	}
 
 	private void updateCheckResult(int mCurCheck, String result) {
+		playAudioTip();
 		if (mCurCheck == 0) {
 			setCheckResultTVStat(rightNakeTV01, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(leftNakeTV02, CHECK_STAT_GOING, result);
-			Toast.makeText(Margaret.getApplicationContext(),
-					"右眼裸眼视力检查完毕，请遮盖右眼，进行左眼裸眼视力检查",
-					Toast.LENGTH_SHORT).show();
+			showTipDialog("右眼裸眼视力检查完毕，请遮盖右眼，进行左眼裸眼视力检查");
 			if (mDistance == 2) {
 				ucvaNearOd = result;
 			} else {
@@ -194,9 +200,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		} else if (mCurCheck == 1) {
 			setCheckResultTVStat(leftNakeTV02, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(rightGlassTV03, CHECK_STAT_GOING, result);
-			Toast.makeText(Margaret.getApplicationContext(),
-					"左眼裸眼近视力检查完毕",
-					Toast.LENGTH_SHORT).show();
+			showTipDialog("左眼裸眼近视力检查完毕");
 			if (mDistance == 2) {
 				ucvaNearOs = result;
 			} else {
@@ -205,9 +209,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		} else if (mCurCheck == 2) {
 			setCheckResultTVStat(rightGlassTV03, CHECK_STAT_DONE, result);
 			setCheckResultTVStat(leftGlassTV04, CHECK_STAT_GOING, result);
-			Toast.makeText(Margaret.getApplicationContext(),
-					"右眼戴镜视力检查完毕，请遮盖右眼，进行左眼戴镜视力检查",
-					Toast.LENGTH_SHORT).show();
+			showTipDialog("右眼戴镜视力检查完毕，请遮盖右眼，进行左眼戴镜视力检查");
 			if (mDistance == 2) {
 				cvaNearOd = result;
 			} else {
@@ -215,9 +217,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 			}
 		} else if (mCurCheck == 3) {
 			setCheckResultTVStat(leftGlassTV04, CHECK_STAT_DONE, result);
-			Toast.makeText(Margaret.getApplicationContext(),
-					"左眼戴镜近视力检查完毕",
-					Toast.LENGTH_SHORT).show();
+			showTipDialog("左眼戴镜近视力检查完毕");
 			if (mDistance == 2) {
 				cvaNearOs = result;
 			} else {
@@ -261,10 +261,10 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 			String command = (String) args;
 			if (AppConstants.SOCKET_COMMAND_CHANGE_NEXT_LINE.equals(command)) {
 				// 下一行
-				mAdapter.onItemClick(mCurIndex + 1);
+				mControlClickListener.onItemClick(mAdapter, controlRecyclerView, mCurIndex + 1);
 			} else if (AppConstants.SOCKET_COMMAND_CHANGE_LAST_LINE.equals(command)) {
 				// 上一行
-				mAdapter.onItemClick(mCurIndex - 1);
+				mControlClickListener.onItemClick(mAdapter, controlRecyclerView, mCurIndex - 1);
 			}
 		});
 	}
@@ -276,7 +276,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		ArrayList<MultipleItemEntity> itemEntities = mConverter.setJsonData("").convert();
 		mAdapter = new ControlAdapter(itemEntities);
 		controlRecyclerView.setAdapter(mAdapter);
-		controlRecyclerView.addOnItemTouchListener(new ControlClickListener());
+		controlRecyclerView.addOnItemTouchListener(mControlClickListener);
 	}
 
 	@Override
@@ -294,30 +294,35 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 	// 控制方向 - 上
 	@OnClick(R2.id.btn_check_top)
 	public void up() {
+		playAudioTip();
 		WebSocketHandler.getDefault().send(AppConstants.SOCKET_COMMAND_CONTROL_UP);
 	}
 
 	// 控制方向 - 下
 	@OnClick(R2.id.btn_check_down)
 	public void down() {
+		playAudioTip();
 		WebSocketHandler.getDefault().send(AppConstants.SOCKET_COMMAND_CONTROL_DOWN);
 	}
 
 	// 控制方向 - 左
 	@OnClick(R2.id.btn_check_left)
 	public void left() {
+		playAudioTip();
 		WebSocketHandler.getDefault().send(AppConstants.SOCKET_COMMAND_CONTROL_LEFT);
 	}
 
 	// 控制方向 - 右
 	@OnClick(R2.id.btn_check_right)
 	public void right() {
+		playAudioTip();
 		WebSocketHandler.getDefault().send(AppConstants.SOCKET_COMMAND_CONTROL_RIGHT);
 	}
 
 	// 看不清
 	@OnClick(R2.id.btn_check_center)
 	public void notClear() {
+		playAudioTip();
 		WebSocketHandler.getDefault().send(AppConstants.SOCKET_COMMAND_CONTROL_CENTER);
 	}
 
@@ -388,5 +393,17 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 				.build()
 				.post();
 
+	}
+
+	private void playAudioTip(){
+		Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		Ringtone rt = RingtoneManager.getRingtone(Margaret.getApplicationContext(), uri);
+		rt.play();
+	}
+
+	private void showTipDialog(String message){
+		TipDialog.Builder builder = new TipDialog.Builder(getContext());
+		TipDialog tipDialog = builder.msg(message).create();
+		tipDialog.show();
 	}
 }
