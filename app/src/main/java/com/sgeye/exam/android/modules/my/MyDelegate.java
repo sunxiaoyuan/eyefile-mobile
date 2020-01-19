@@ -15,6 +15,7 @@ import com.sgeye.exam.android.R;
 import com.sgeye.exam.android.R2;
 import com.sgeye.exam.android.modules.bottom.BottomDelegate;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
+import com.sgeye.exam.android.modules.check.ResultDialog;
 import com.sgeye.exam.android.modules.signin.SignInHyberDelegate;
 import com.simon.margaret.app.AccountManager;
 import com.simon.margaret.app.Margaret;

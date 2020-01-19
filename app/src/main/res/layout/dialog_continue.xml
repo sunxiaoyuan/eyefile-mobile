@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="300dp"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_marginVertical="20dp"
+        android:id="@+id/tv_continue_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="裸眼视力检查完毕。是否要进行戴镜视力检查?"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_below="@+id/tv_continue_title"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/btn_cancel_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CBCAD9"
+        android:text="否"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:layout_below="@+id/tv_continue_title"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/btn_confirm_continue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor"
+        android:text="是"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+
+
+</RelativeLayout>
