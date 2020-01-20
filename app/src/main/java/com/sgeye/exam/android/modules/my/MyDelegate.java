@@ -56,7 +56,7 @@ public class MyDelegate extends BottomItemDelegate
 	@BindView(R2.id.tv_my_phone)
 	TextView phoneTV;
 
-	@BindView(R2.id.ll_list)
+	@BindView(R2.id.ll_list_device)
 	LinearLayout connDeviceLL;
 	@BindView(R2.id.ll_list2)
 	LinearLayout countMethodLL;
@@ -139,7 +139,7 @@ public class MyDelegate extends BottomItemDelegate
 	}
 
 	// 点击设备连接，页面跳转
-	@OnClick(R2.id.ll_list)
+	@OnClick(R2.id.ll_list_device)
 	public void jump2ConnDevicePage() {
 		final BottomDelegate bottomDelegate = getParentDelegate();
 		MargaretDelegate connDevicePage = new ConDeviceDelegate();
@@ -180,7 +180,7 @@ public class MyDelegate extends BottomItemDelegate
 	}
 
 	@Override
-	public void onChangeDistance(int index) {
+	public void onChangeRefrection(int index) {
 		mRefrectionIndex = index;
 		tv_refraction_check.setText(mRefractionList.get(index));
 	}

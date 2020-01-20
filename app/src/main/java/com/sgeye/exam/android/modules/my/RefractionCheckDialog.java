@@ -23,6 +23,7 @@ public class RefractionCheckDialog extends Dialog {
 
 	public static class Builder {
 
+
 		private Context context;
 		private OnChangeRefrection mOnChangeRefrectionListener;
 		private int mIndex;
@@ -87,28 +88,28 @@ public class RefractionCheckDialog extends Dialog {
 							iv_索维.setImageResource(R.mipmap.unselect);
 							iv_莫廷.setImageResource(R.mipmap.unselect);
 							iv_其他.setImageResource(R.mipmap.unselect);
-							mOnChangeRefrectionListener.onChangeDistance(0);
+							mOnChangeRefrectionListener.onChangeRefrection(0);
 							break;
 						case R.id.ll_索维:
 							iv_伟伦.setImageResource(R.mipmap.unselect);
 							iv_索维.setImageResource(R.mipmap.select);
 							iv_莫廷.setImageResource(R.mipmap.unselect);
 							iv_其他.setImageResource(R.mipmap.unselect);
-							mOnChangeRefrectionListener.onChangeDistance(1);
+							mOnChangeRefrectionListener.onChangeRefrection(1);
 							break;
 						case R.id.ll_莫廷:
 							iv_伟伦.setImageResource(R.mipmap.unselect);
 							iv_索维.setImageResource(R.mipmap.unselect);
 							iv_莫廷.setImageResource(R.mipmap.select);
 							iv_其他.setImageResource(R.mipmap.unselect);
-							mOnChangeRefrectionListener.onChangeDistance(2);
+							mOnChangeRefrectionListener.onChangeRefrection(2);
 							break;
 						case R.id.ll_其他:
 							iv_伟伦.setImageResource(R.mipmap.unselect);
 							iv_索维.setImageResource(R.mipmap.unselect);
 							iv_莫廷.setImageResource(R.mipmap.unselect);
 							iv_其他.setImageResource(R.mipmap.select);
-							mOnChangeRefrectionListener.onChangeDistance(3);
+							mOnChangeRefrectionListener.onChangeRefrection(3);
 							break;
 						default:
 							break;

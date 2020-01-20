@@ -122,6 +122,7 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
+                    android:id="@+id/tv_my_conStat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -359,67 +360,14 @@
                 android:layout_below="@+id/ll_list_print_settings"
                 android:background="#EFEFF4" />
 
-            <!--  设备连接  -->
-            <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
-                android:id="@+id/ll_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/v_list_bg_4"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal"
-                android:paddingLeft="5dp"
-                lta:addition="20dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="7"
-                    android:gravity="start"
-                    android:text="设备连接"
-                    android:textColor="#7D7D7D"
-                    android:textSize="16sp"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    android:id="@+id/tv_my_conStat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="end"
-                    android:text="未连接"
-                    android:textColor="#515151"
-                    android:textSize="12sp"
-                    tools:ignore="HardcodedText" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:src="@mipmap/arrow"
-                    android:textColor="#DEDEE0" />
-
-
-            </com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout>
-
-            <View
-                android:id="@+id/v_list_bg"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/ll_list"
-                android:layout_marginLeft="15dp"
-                android:background="#EFEFF4" />
 
             <!--  视力计数法  -->
             <com.simon.margaret.ui.largetouchable.LargeTouchableAreasLinearLayout
                 android:id="@+id/ll_list2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/v_list_bg"
+                android:layout_below="@+id/v_list_bg_4"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal"

@@ -335,7 +335,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
         // 上传
         RestClient.builder()
                 .raw(paramsStr)
-                .url(Margaret.getConfiguration(ConfigKeys.API_HOST) + "/efile/app/visual")
+                .url(Margaret.getConfiguration(ConfigKeys.API_HOST) + "/efiles/pad/visions")
                 .success(response -> {
                     JSONObject parseObj = JSON.parseObject(response);
                     int code = (int) parseObj.get("code");

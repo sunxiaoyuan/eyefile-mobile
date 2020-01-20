@@ -5,5 +5,5 @@ package com.sgeye.exam.android.modules.my;
  */
 
 public interface OnChangeRefrection {
-	public void onChangeDistance(int index);
+	public void onChangeRefrection(int index);
 }
