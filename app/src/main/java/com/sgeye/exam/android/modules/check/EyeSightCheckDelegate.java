@@ -1,8 +1,10 @@
 package com.sgeye.exam.android.modules.check;
 
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -396,9 +398,13 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
     }
 
     private void playAudioTip() {
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone rt = RingtoneManager.getRingtone(Margaret.getApplicationContext(), uri);
-        rt.play();
+//        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        Ringtone rt = RingtoneManager.getRingtone(Margaret.getApplicationContext(), uri);
+//        rt.play();
+
+        SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        int soundId = sp.load(Margaret.getApplicationContext(), R.raw.custome_notification, 1);
+        sp.play(soundId, 1, 1, 0, 0, 1);
     }
 
     private void showTipDialog(String message) {

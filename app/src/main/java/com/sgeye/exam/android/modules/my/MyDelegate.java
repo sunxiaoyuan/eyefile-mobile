@@ -1,5 +1,11 @@
 package com.sgeye.exam.android.modules.my;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +26,7 @@ import com.sgeye.exam.android.modules.bottom.BottomDelegate;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.ResultDialog;
 import com.sgeye.exam.android.modules.signin.SignInHyberDelegate;
+import com.sgeye.exam.android.utils.SoundUtils;
 import com.simon.margaret.app.AccountManager;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.app.UserInfo;
@@ -36,6 +43,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.simon.margaret.app.Margaret.getApplicationContext;
 
 /**
  * Created by apple on 2019/9/4.
@@ -169,21 +178,23 @@ public class MyDelegate extends BottomItemDelegate
     @OnClick(R2.id.btn_my_logout)
     public void logout() {
         // 清除本地信息
-        AccountManager.setSignState(false);
+//        AccountManager.setSignState(false);
+//
+//        Margaret.eraseLocalUserInfo();
+//        // 清除cookie
+//        MargaretPreference.addCustomAppProfile("cookie", null);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+//                @Override
+//                public void onReceiveValue(Boolean value) {
+//
+//                }
+//            });
+//        }
+//        // 跳转到登录页
+//        getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
 
-        Margaret.eraseLocalUserInfo();
-        // 清除cookie
-        MargaretPreference.addCustomAppProfile("cookie", null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
-                @Override
-                public void onReceiveValue(Boolean value) {
-
-                }
-            });
-        }
-        // 跳转到登录页
-        getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
+        SoundUtils.playSound();
     }
 
     @OnClick(R2.id.ll_list_quguang)
@@ -259,7 +270,7 @@ public class MyDelegate extends BottomItemDelegate
     // 重新连接回收上次连接的对象，避免内存泄漏
     private void closeport() {
         if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid] != null && DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort != null) {
-            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].reader.cancel();
+//            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].reader.cancel();
             DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort.closePort();
             DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort = null;
         }
