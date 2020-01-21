@@ -29,9 +29,12 @@ public enum CallbackType {
     ON_MESSAGE_RESULT,
     ON_CLICK,
 
-
     // 扫描二维码相关
     ON_CLINIC_SCAN,
     ON_SCHOOL_SCAN,
     ON_CONN_DEVICE_SCAN,
+
+    // Bluetooth
+    ON_CLICK_BLUTOOTH_DEVICE
+
 }

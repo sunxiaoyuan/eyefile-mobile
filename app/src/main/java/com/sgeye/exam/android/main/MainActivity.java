@@ -119,7 +119,11 @@ public class MainActivity extends ProxyActivity implements SocketListener {
 				.withPermissions(
 						Manifest.permission.CAMERA,
 						Manifest.permission.READ_EXTERNAL_STORAGE,
-						Manifest.permission.WRITE_EXTERNAL_STORAGE
+						Manifest.permission.WRITE_EXTERNAL_STORAGE,
+						Manifest.permission.BLUETOOTH,
+						Manifest.permission.BLUETOOTH_ADMIN,
+						Manifest.permission.ACCESS_FINE_LOCATION,
+						Manifest.permission.CHANGE_NETWORK_STATE
 				).withListener(new MultiplePermissionsListener() {
 			@Override
 			public void onPermissionsChecked(MultiplePermissionsReport report) {/* ... */}

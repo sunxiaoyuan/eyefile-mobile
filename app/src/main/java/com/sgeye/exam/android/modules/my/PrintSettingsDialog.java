@@ -45,7 +45,6 @@ public class PrintSettingsDialog extends Dialog {
 
 			final PrintSettingsDialog dialog = new PrintSettingsDialog(context);
 			View view = LayoutInflater.from(context).inflate(R.layout.dialog_print_settings, null);
-			// 加上这一句，取消原来的标题栏，没加这句之前，发现在三星的手机上会有一条蓝色的线
 			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			dialog.setContentView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 			dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

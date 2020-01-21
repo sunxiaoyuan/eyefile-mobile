@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
     android:layout_height="300dp"
-    android:background="#595656"
+    android:background="@color/white"
     android:padding="20dp">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="屈光筛查仪"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         tools:ignore="HardcodedText" />
 
@@ -27,7 +27,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_distance_title"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
     <RelativeLayout
         android:id="@+id/ll_伟伦"
@@ -62,7 +62,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="伟伦"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
@@ -78,7 +78,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ll_伟伦"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
     <RelativeLayout
         android:id="@+id/ll_索维"
@@ -113,7 +113,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="索维"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
@@ -129,7 +129,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ll_索维"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
 
     <RelativeLayout
@@ -165,7 +165,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="莫廷"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
@@ -181,7 +181,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/ll_莫廷"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
     <RelativeLayout
         android:id="@+id/ll_其他"
@@ -216,7 +216,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="其他"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 

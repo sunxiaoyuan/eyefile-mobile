@@ -33,6 +33,7 @@ import com.simon.margaret.ui.loader.MargaretLoader;
 import com.simon.margaret.ui.recycler.MultipleItemEntity;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
+import com.simon.margaret.util.storage.MargaretPreference;
 import com.zhangke.websocket.WebSocketHandler;
 
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 
     // 默认先检查近距离 2 or 5
     private int mDistance = 5;
+
+    // 打印设置
+    private int mPrintSetting;
+    private int successCount = 0;
 
     // 视力检查结果
     private CheckResult checkResult = new CheckResult();
@@ -115,6 +120,12 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
         handleUserChangeLine();
         // 拿到测试结果回调
         handlePadMessageOfResult();
+        String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
+        if (StringUtils.isEmpty(setting)) {
+            mPrintSetting = 0;
+            MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+        }
+        mPrintSetting = Integer.valueOf(setting);
     }
 
     public void setBean(CheckPadEventBean mBean) {
@@ -248,10 +259,10 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
         controlRecyclerView.addOnItemTouchListener(mControlClickListener);
     }
 
-    @Override
-    public FragmentAnimator onCreateFragmentAnimator() {
-        return new DefaultHorizontalAnimator();
-    }
+//    @Override
+//    public FragmentAnimator onCreateFragmentAnimator() {
+//        return new DefaultHorizontalAnimator();
+//    }
 
     // 返回
     @OnClick(R2.id.btn_check_back)
@@ -342,8 +353,16 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
                     if (code == 0) {
                         ToastUtils.showShort("保存成功" + parseObj.get("message"));
                         WebSocketHandler.getDefault().send("onOpen:false");
-                        // 返回检查列表页面
-                        getSupportDelegate().pop();
+                        if (mPrintSetting == 0) {
+                            // 返回检查列表页面
+                            getSupportDelegate().pop();
+                        } else {
+                            if (successCount == 2){
+                                getSupportDelegate().pop();
+                            } else {
+                                successCount++;
+                            }
+                        }
                     } else {
                         ToastUtils.showShort((String) parseObj.get("message"));
                     }
@@ -357,6 +376,23 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
                 .build()
                 .post();
 
+        // 打印
+        print();
+    }
+
+    // 打印
+    private void print() {
+        switch (mPrintSetting) {
+            case 0:
+                // do nothing
+                break;
+            case 1:
+                // 打印带回执
+                break;
+            case 2:
+                // 打印不带回执
+                break;
+        }
     }
 
     private void playAudioTip() {

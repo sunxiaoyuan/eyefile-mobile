@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:lta="http://schemas.android.com/apk/res-auto"
+    android:background="#EFEFF4"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white">
+
+        <com.simon.margaret.ui.largetouchable.LargeTouchableAreasButton
+            android:id="@+id/btn_blutooth_list_back"
+            android:layout_width="10dp"
+            android:layout_height="18dp"
+            android:background="@mipmap/back"
+            lta:addition="30dp"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="蓝牙列表"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:id="@+id/v_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/tool_bar_shadow" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/v_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView android:id="@+id/lvPairedDevices"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:layout_margin="5dp"
+            android:background="@drawable/background_corner" />
+
+        <Button android:id="@+id/btBluetoothScan"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="扫描"
+            android:textSize="18sp"
+            android:background="@drawable/border_conn_qr"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1"
+            tools:ignore="HardcodedText" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
     android:layout_height="300dp"
-    android:background="#595656"
+    android:background="@color/white"
     android:padding="20dp">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="打印设置"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         tools:ignore="HardcodedText" />
 
@@ -21,48 +21,48 @@
         android:id="@+id/v_distance_divider1"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_distance_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
     <RelativeLayout
         android:id="@+id/ll_不打印"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/v_distance_divider1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent">
 
         <ImageView
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
             android:id="@+id/iv_不打印"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/select" />
 
         <TextView
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="不打印"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
@@ -72,48 +72,48 @@
         android:id="@+id/v_distance_divider2"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/ll_不打印"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
     <RelativeLayout
         android:id="@+id/ll_打印带回执"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/v_distance_divider2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent">
 
         <ImageView
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
             android:id="@+id/iv_打印带回执"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/unselect" />
 
         <TextView
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="打印带回执"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
@@ -123,56 +123,52 @@
         android:id="@+id/v_distance_divider3"
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/ll_打印带回执"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@color/white" />
+        android:background="#CBCAD9" />
 
 
     <RelativeLayout
         android:id="@+id/ll_打印不带回执"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/v_distance_divider3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent">
 
         <ImageView
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
             android:id="@+id/iv_打印不带回执"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/unselect" />
 
         <TextView
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="打印不带回执"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
-
-
-
-
 
 </RelativeLayout>
