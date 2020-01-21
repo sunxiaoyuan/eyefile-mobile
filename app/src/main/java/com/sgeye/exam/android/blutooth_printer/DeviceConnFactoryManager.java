@@ -10,12 +10,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.gprinter.io.BluetoothPort;
 import com.gprinter.io.EthernetPort;
 import com.gprinter.io.PortManager;
 import com.gprinter.io.SerialPort;
 import com.gprinter.io.UsbPort;
+
+import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
 import com.simon.margaret.app.Margaret;
 
