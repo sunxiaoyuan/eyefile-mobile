@@ -72,17 +72,17 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 		// 处理原生打印单据
 		handleNativePrint();
 
-		String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
-		if (StringUtils.isEmpty(setting)) {
-			mPrintSetting = 0;
-			MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
-		} else {
-			mPrintSetting = Integer.valueOf(setting);
-		}
 	}
 
 	private void handleNativePrint() {
 		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_PRINT_CLINIC, args -> {
+			String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
+			if (StringUtils.isEmpty(setting)) {
+				mPrintSetting = 0;
+				MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+			} else {
+				mPrintSetting = Integer.valueOf(setting);
+			}
 			PrintEventBean bean = (PrintEventBean) args;
 			if (bean != null){
 				switch (mPrintSetting) {

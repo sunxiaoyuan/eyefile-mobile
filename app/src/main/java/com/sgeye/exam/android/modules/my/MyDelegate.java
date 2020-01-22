@@ -99,6 +99,7 @@ public class MyDelegate extends BottomItemDelegate
 	@BindView(R2.id.tv_my_bluetooth_state)
 	TextView tv_my_bluetooth_state;
 
+
 	// ---- 打印相关 ---- //
 
 	private int mid = 0;
@@ -121,6 +122,31 @@ public class MyDelegate extends BottomItemDelegate
 		}
 
 		handleConnectBlutoothDevice();
+
+		String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
+		if (StringUtils.isEmpty(setting)) {
+			mPrintSettingsIndex = 0;
+			MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+		} else {
+			mPrintSettingsIndex = Integer.valueOf(setting);
+		}
+		switch (mPrintSettingsIndex) {
+			case 0:
+				// do nothing
+				tv_print_settings.setText("不打印");
+				break;
+			case 1:
+				// 打印带回执
+				tv_print_settings.setText("打印带回执");
+				break;
+			case 2:
+				// 打印不带回执
+				tv_print_settings.setText("打印不带回执");
+				break;
+		}
+
+		// 自动连接上次连接的蓝牙设备
+		autoConnectBlutoothDevice();
 	}
 
 
@@ -190,21 +216,21 @@ public class MyDelegate extends BottomItemDelegate
 	@OnClick(R2.id.btn_my_logout)
 	public void logout() {
 		// 清除本地信息
-        AccountManager.setSignState(false);
+		AccountManager.setSignState(false);
 
-        Margaret.eraseLocalUserInfo();
-        // 清除cookie
-        MargaretPreference.addCustomAppProfile("cookie", null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
-                @Override
-                public void onReceiveValue(Boolean value) {
+		Margaret.eraseLocalUserInfo();
+		// 清除cookie
+		MargaretPreference.addCustomAppProfile("cookie", null);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+				@Override
+				public void onReceiveValue(Boolean value) {
 
-                }
-            });
-        }
-        // 跳转到登录页
-        getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
+				}
+			});
+		}
+		// 跳转到登录页
+		getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
 	}
 
 	@OnClick(R2.id.ll_list_quguang)
@@ -222,6 +248,13 @@ public class MyDelegate extends BottomItemDelegate
 	@OnClick(R2.id.ll_list_print_settings)
 	public void changePrintSettings() {
 		PrintSettingsDialog.Builder builder = new PrintSettingsDialog.Builder(getContext());
+		String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
+		if (StringUtils.isEmpty(setting)) {
+			mPrintSettingsIndex = 0;
+			MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+		} else {
+			mPrintSettingsIndex = Integer.valueOf(setting);
+		}
 		builder.onChangePrintSettings(this).distance(mPrintSettingsIndex).create().show();
 	}
 
@@ -251,10 +284,35 @@ public class MyDelegate extends BottomItemDelegate
 		getParentDelegate().getSupportDelegate().start(new BluetoothDeviceListDelegate());
 	}
 
+	private void autoConnectBlutoothDevice() {
+		String address = MargaretPreference.getCustomAppProfile("KEY_LATEST_BLUETOOTH_ADDRESS");
+		if (!StringUtils.isEmpty(address)) {
+			/* 初始化话DeviceConnFactoryManager */
+			new DeviceConnFactoryManager.Build()
+					.setId(mid)
+					/* 设置连接方式 */
+					.setConnMethod(DeviceConnFactoryManager.CONN_METHOD.BLUETOOTH)
+					/* 设置连接的蓝牙mac地址 */
+					.setMacAddress(address)
+					.build();
+			/* 打开端口 */
+			Log.d("MyDelegate", "onActivityResult: 连接蓝牙" + mid);
+
+			threadPool = ThreadPool.getInstantiation();
+			threadPool.addTask(new Runnable() {
+				@Override
+				public void run() {
+					DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].openPort();
+				}
+			});
+		}
+	}
+
 	// 处理蓝牙设备回调
 	private void handleConnectBlutoothDevice() {
 		CallbackManager.getInstance().addCallback(CallbackType.ON_CLICK_BLUTOOTH_DEVICE, args -> {
 			String address = (String) args;
+			MargaretPreference.addCustomAppProfile("KEY_LATEST_BLUETOOTH_ADDRESS", address);
 			/* 初始化话DeviceConnFactoryManager */
 			new DeviceConnFactoryManager.Build()
 					.setId(mid)
