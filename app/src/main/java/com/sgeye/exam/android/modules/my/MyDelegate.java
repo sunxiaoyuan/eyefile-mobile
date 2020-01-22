@@ -5,16 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.media.SoundPool;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,15 +23,13 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
 import com.sgeye.exam.android.R2;
 import com.sgeye.exam.android.blutooth_printer.BluetoothDeviceListDelegate;
-import com.sgeye.exam.android.blutooth_printer.CheckPrinter;
+import com.sgeye.exam.android.blutooth_printer.PrintManager;
 import com.sgeye.exam.android.blutooth_printer.DeviceConnFactoryManager;
 import com.sgeye.exam.android.blutooth_printer.PrinterCommand;
 import com.sgeye.exam.android.blutooth_printer.ThreadPool;
 import com.sgeye.exam.android.modules.bottom.BottomDelegate;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
-import com.sgeye.exam.android.modules.check.ResultDialog;
 import com.sgeye.exam.android.modules.signin.SignInHyberDelegate;
-import com.sgeye.exam.android.utils.SoundUtils;
 import com.simon.margaret.app.AccountManager;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.app.UserInfo;
@@ -60,17 +49,11 @@ import java.util.Vector;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import com.gprinter.command.CpclCommand;
-import com.gprinter.command.EscCommand;
-import com.gprinter.command.FactoryCommand;
-import com.gprinter.command.LabelCommand;
-
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_ATTACHED;
 import static android.hardware.usb.UsbManager.ACTION_USB_DEVICE_DETACHED;
 import static com.sgeye.exam.android.blutooth_printer.Constant.ACTION_USB_PERMISSION;
 import static com.sgeye.exam.android.blutooth_printer.DeviceConnFactoryManager.ACTION_QUERY_PRINTER_STATE;
 import static com.sgeye.exam.android.blutooth_printer.DeviceConnFactoryManager.CONN_STATE_FAILED;
-import static com.simon.margaret.app.Margaret.getApplicationContext;
 
 /**
  * Created by apple on 2019/9/4.
@@ -117,43 +100,9 @@ public class MyDelegate extends BottomItemDelegate
 	TextView tv_my_bluetooth_state;
 
 	// ---- 打印相关 ---- //
-	private int counts;
-	ArrayList<String> per = new ArrayList<>();
-	private UsbManager usbManager;
-	// 判断打印机所使用指令是否是ESC指令
+
 	private int mid = 0;
 	private ThreadPool threadPool;
-	private static final int REQUEST_CODE = 0x004;
-	/**
-	 * 连接状态断开
-	 */
-	private static final int CONN_STATE_DISCONN = 0x007;
-
-	/**
-	 * 使用打印机指令错误
-	 */
-	private static final int PRINTER_COMMAND_ERROR = 0x008;
-
-	/**
-	 * ESC查询打印机实时状态指令
-	 */
-	private byte[] esc = {0x10, 0x04, 0x02};
-
-	/**
-	 * CPCL查询打印机实时状态指令
-	 */
-	private byte[] cpcl = {0x1b, 0x68};
-
-	/**
-	 * TSC查询打印机状态指令
-	 */
-	private byte[] tsc = {0x1b, '!', '?'};
-
-	private static final int CONN_MOST_DEVICES = 0x11;
-	private static final int CONN_PRINTER = 0x12;
-	private int printcount = 0;
-	private boolean continuityprint = false;
-
 
 	@Override
 	public Object setLayout() {
@@ -241,25 +190,21 @@ public class MyDelegate extends BottomItemDelegate
 	@OnClick(R2.id.btn_my_logout)
 	public void logout() {
 		// 清除本地信息
-//        AccountManager.setSignState(false);
-//
-//        Margaret.eraseLocalUserInfo();
-//        // 清除cookie
-//        MargaretPreference.addCustomAppProfile("cookie", null);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
-//                @Override
-//                public void onReceiveValue(Boolean value) {
-//
-//                }
-//            });
-//        }
-//        // 跳转到登录页
-//        getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
+        AccountManager.setSignState(false);
 
-//		SoundUtils.playSound();
+        Margaret.eraseLocalUserInfo();
+        // 清除cookie
+        MargaretPreference.addCustomAppProfile("cookie", null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
+                @Override
+                public void onReceiveValue(Boolean value) {
 
-		btnLabelPrint();
+                }
+            });
+        }
+        // 跳转到登录页
+        getParentDelegate().getSupportDelegate().startWithPop(new SignInHyberDelegate());
 	}
 
 	@OnClick(R2.id.ll_list_quguang)
@@ -310,7 +255,6 @@ public class MyDelegate extends BottomItemDelegate
 	private void handleConnectBlutoothDevice() {
 		CallbackManager.getInstance().addCallback(CallbackType.ON_CLICK_BLUTOOTH_DEVICE, args -> {
 			String address = (String) args;
-//			closeport();
 			/* 初始化话DeviceConnFactoryManager */
 			new DeviceConnFactoryManager.Build()
 					.setId(mid)
@@ -332,53 +276,6 @@ public class MyDelegate extends BottomItemDelegate
 		});
 	}
 
-
-	// 重新连接回收上次连接的对象，避免内存泄漏
-	private void closeport() {
-		if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid] != null && DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort != null) {
-//            DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].reader.cancel();
-			DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort.closePort();
-			DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].mPort = null;
-		}
-	}
-
-	/**
-	 * 打印机状态查询
-	 *
-	 * @param view
-	 */
-	public void btnPrinterState(View view) {
-		/* 打印机状态查询 */
-		if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid] == null ||
-				!DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getConnState()) {
-			ToastUtils.showShort(getString(R.string.str_cann_printer));
-			return;
-		}
-		DeviceConnFactoryManager.whichFlag = true;
-		ThreadPool.getInstantiation().addTask(new Runnable() {
-			@Override
-			public void run() {
-				Vector<Byte> data = new Vector<>(esc.length);
-				if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getCurrentPrinterCommand() == PrinterCommand.ESC) {
-					for (int i = 0; i < esc.length; i++) {
-						data.add(esc[i]);
-					}
-					DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].sendDataImmediately(data);
-				} else if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getCurrentPrinterCommand() == PrinterCommand.TSC) {
-					for (int i = 0; i < tsc.length; i++) {
-						data.add(tsc[i]);
-					}
-					DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].sendDataImmediately(data);
-				} else if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getCurrentPrinterCommand() == PrinterCommand.CPCL) {
-					for (int i = 0; i < cpcl.length; i++) {
-						data.add(cpcl[i]);
-					}
-					DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].sendDataImmediately(data);
-				}
-			}
-		});
-	}
-
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -396,16 +293,11 @@ public class MyDelegate extends BottomItemDelegate
 		_mActivity.unregisterReceiver(receiver);
 	}
 
-
 	private BroadcastReceiver receiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			switch (action) {
-				/* Usb连接断开、蓝牙连接断开广播 */
-				case ACTION_USB_DEVICE_DETACHED:
-					mHandler.obtainMessage(CONN_STATE_DISCONN).sendToTarget();
-					break;
 				case DeviceConnFactoryManager.ACTION_CONN_STATE:
 					int state = intent.getIntExtra(DeviceConnFactoryManager.STATE, -1);
 					int deviceId = intent.getIntExtra(DeviceConnFactoryManager.DEVICE_ID, -1);
@@ -434,46 +326,5 @@ public class MyDelegate extends BottomItemDelegate
 			}
 		}
 	};
-
-	@SuppressLint("HandlerLeak")
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-				case CONN_STATE_DISCONN:
-					if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid] != null || !DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getConnState()) {
-						DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].closePort(mid);
-						ToastUtils.showShort(getString(R.string.str_disconnect_success));
-					}
-					break;
-				case PRINTER_COMMAND_ERROR:
-					ToastUtils.showShort(getString(R.string.str_choice_printer_command));
-					break;
-				case CONN_PRINTER:
-					ToastUtils.showShort(getString(R.string.str_cann_printer));
-					break;
-			}
-		}
-	};
-
-	public void btnLabelPrint() {
-		if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid] == null ||
-				!DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getConnState()) {
-			ToastUtils.showShort(getString(R.string.str_cann_printer));
-			return;
-		}
-		threadPool = ThreadPool.getInstantiation();
-		threadPool.addTask(new Runnable() {
-			@Override
-			public void run() {
-				if (DeviceConnFactoryManager.getDeviceConnFactoryManagers()[mid].getCurrentPrinterCommand() == PrinterCommand.ESC) {
-					CheckPrinter.receiptPrint(true);
-				} else {
-					mHandler.obtainMessage(PRINTER_COMMAND_ERROR).sendToTarget();
-				}
-			}
-		});
-	}
-
 
 }

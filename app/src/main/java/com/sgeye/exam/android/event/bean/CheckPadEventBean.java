@@ -4,52 +4,24 @@ package com.sgeye.exam.android.event.bean;
  * Created by apple on 2019/11/25.
  */
 
-public class CheckPadEventBean {
+public class CheckPadEventBean extends PrintEventBean {
 
-	private String action;
-	private String studentId;
-	private String etaskId;
-	private String from;
+    public String studentId;
+    public String etaskId;
 
-	public CheckPadEventBean() {
-	}
+    public String getStudentId() {
+        return studentId;
+    }
 
-	public CheckPadEventBean(String action, String studentId, String etaskId, String from) {
-		this.action = action;
-		this.studentId = studentId;
-		this.etaskId = etaskId;
-		this.from = from;
-	}
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
-	public String getFrom() {
-		return from;
-	}
+    public String getEtaskId() {
+        return etaskId;
+    }
 
-	public void setFrom(String from) {
-		this.from = from;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-	public String getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
-	}
-
-	public String getEtaskId() {
-		return etaskId;
-	}
-
-	public void setEtaskId(String etaskId) {
-		this.etaskId = etaskId;
-	}
+    public void setEtaskId(String etaskId) {
+        this.etaskId = etaskId;
+    }
 }

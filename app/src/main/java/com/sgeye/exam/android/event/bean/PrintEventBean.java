@@ -2,15 +2,17 @@ package com.sgeye.exam.android.event.bean;
 
 public class PrintEventBean {
 
-	private String action;
-	private String checkDate;
-	private String name;
-	private String phone;
-	private String schoolName;
-	private String grade;
-	private String className;
-	private String hospitalName;
-	private String mobile;
+	public String action;
+	public String checkDate;
+	public String name;
+	public String phone;
+	public String schoolName;
+	public String grade;
+	public String className;
+	public String hospitalName;
+	public String mobile;
+	public String from;
+	public String qrcode;
 
 	public String getAction() {
 		return action;
@@ -82,5 +84,21 @@ public class PrintEventBean {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	public String getQrcode() {
+		return qrcode;
+	}
+
+	public void setQrcode(String qrcode) {
+		this.qrcode = qrcode;
 	}
 }

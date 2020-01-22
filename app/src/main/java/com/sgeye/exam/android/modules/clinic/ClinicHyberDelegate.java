@@ -8,10 +8,13 @@ import android.webkit.WebView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
+import com.sgeye.exam.android.blutooth_printer.PrintManager;
 import com.sgeye.exam.android.event.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
+import com.sgeye.exam.android.event.bean.PrintEventBean;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
 import com.sgeye.exam.android.modules.check.EyeSightCheckDelegate;
 import com.sgeye.exam.android.modules.scanner.ScannerDelegate;
@@ -23,6 +26,7 @@ import com.simon.margaret.ui.camera.MargaretCamera;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
 import com.simon.margaret.util.log.MargaretLogger;
+import com.simon.margaret.util.storage.MargaretPreference;
 import com.zhangke.websocket.WebSocketHandler;
 
 /**
@@ -32,6 +36,9 @@ import com.zhangke.websocket.WebSocketHandler;
 public class ClinicHyberDelegate extends BottomItemDelegate {
 
 	private WebView currentWebView = null;
+
+	private int mPrintSetting;
+
 
 	@Override
 	public Object setLayout() {
@@ -62,7 +69,40 @@ public class ClinicHyberDelegate extends BottomItemDelegate {
 		// 处理自动检查
 		handleEysSightCheck();
 
+		// 处理原生打印单据
+		handleNativePrint();
+
+		String setting = MargaretPreference.getCustomAppProfile("KEY_PRINT_SETTING");
+		if (StringUtils.isEmpty(setting)) {
+			mPrintSetting = 0;
+			MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+		} else {
+			mPrintSetting = Integer.valueOf(setting);
+		}
 	}
+
+	private void handleNativePrint() {
+		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_PRINT_CLINIC, args -> {
+			PrintEventBean bean = (PrintEventBean) args;
+			if (bean != null){
+				switch (mPrintSetting) {
+					case 0:
+						// do nothing
+						break;
+					case 1:
+						// 打印带回执
+						PrintManager.getInstance().printRecept(true, bean);
+						break;
+					case 2:
+						// 打印不带回执
+						PrintManager.getInstance().printRecept(false, bean);
+						break;
+				}
+			}
+		});
+	}
+
+
 
 	private void handleEysSightCheck() {
 		CallbackManager.getInstance().addCallback(CallbackType.ON_JS_CALL_NATIVE_SIGHT_CHECK_CLINIC, args -> {

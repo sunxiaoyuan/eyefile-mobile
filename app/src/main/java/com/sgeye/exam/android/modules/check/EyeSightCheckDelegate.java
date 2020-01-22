@@ -1,12 +1,13 @@
 package com.sgeye.exam.android.modules.check;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
-import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -22,6 +22,10 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.sgeye.exam.android.R;
 import com.sgeye.exam.android.R2;
+import com.sgeye.exam.android.blutooth_printer.PrintManager;
+import com.sgeye.exam.android.blutooth_printer.DeviceConnFactoryManager;
+import com.sgeye.exam.android.blutooth_printer.PrinterCommand;
+import com.sgeye.exam.android.blutooth_printer.ThreadPool;
 import com.sgeye.exam.android.event.bean.CheckPadEventBean;
 import com.sgeye.exam.android.constants.AppConstants;
 import com.sgeye.exam.android.modules.bottom.BottomItemDelegate;
@@ -31,7 +35,6 @@ import com.sgeye.exam.android.modules.check.list.ControlConverter;
 import com.simon.margaret.app.ConfigKeys;
 import com.simon.margaret.app.Margaret;
 import com.simon.margaret.net.RestClient;
-import com.simon.margaret.ui.loader.MargaretLoader;
 import com.simon.margaret.ui.recycler.MultipleItemEntity;
 import com.simon.margaret.util.callback.CallbackManager;
 import com.simon.margaret.util.callback.CallbackType;
@@ -43,8 +46,7 @@ import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
+
 
 /**
  * Created by apple on 2019/11/20.
@@ -107,6 +109,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 
     ControlClickListener mControlClickListener = new ControlClickListener();
 
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_eyesight_check;
@@ -126,8 +129,9 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
         if (StringUtils.isEmpty(setting)) {
             mPrintSetting = 0;
             MargaretPreference.addCustomAppProfile("KEY_PRINT_SETTING", "0");
+        } else {
+            mPrintSetting = Integer.valueOf(setting);
         }
-        mPrintSetting = Integer.valueOf(setting);
     }
 
     public void setBean(CheckPadEventBean mBean) {
@@ -359,7 +363,7 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
                             // 返回检查列表页面
                             getSupportDelegate().pop();
                         } else {
-                            if (successCount == 2){
+                            if (successCount == 2) {
                                 getSupportDelegate().pop();
                             } else {
                                 successCount++;
@@ -390,21 +394,29 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
                 break;
             case 1:
                 // 打印带回执
+                PrintManager.getInstance().printRecept(true, mBean);
+                if (successCount == 2) {
+                    getSupportDelegate().pop();
+                } else {
+                    successCount++;
+                }
                 break;
             case 2:
                 // 打印不带回执
+                PrintManager.getInstance().printRecept(false, mBean);
+                if (successCount == 2) {
+                    getSupportDelegate().pop();
+                } else {
+                    successCount++;
+                }
                 break;
         }
     }
 
     private void playAudioTip() {
-//        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        Ringtone rt = RingtoneManager.getRingtone(Margaret.getApplicationContext(), uri);
-//        rt.play();
-
-        SoundPool sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
-        int soundId = sp.load(Margaret.getApplicationContext(), R.raw.custome_notification, 1);
-        sp.play(soundId, 1, 1, 0, 0, 1);
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone rt = RingtoneManager.getRingtone(Margaret.getApplicationContext(), uri);
+        rt.play();
     }
 
     private void showTipDialog(String message) {
