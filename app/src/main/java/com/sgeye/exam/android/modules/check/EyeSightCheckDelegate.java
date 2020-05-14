@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -125,6 +126,12 @@ public class EyeSightCheckDelegate extends BottomItemDelegate implements OnChang
 		} else {
 			mPrintSetting = Integer.valueOf(setting);
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		_mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
 	public void setBean(CheckPadEventBean mBean) {

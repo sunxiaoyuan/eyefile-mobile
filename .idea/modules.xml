@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-studio-workspace-eyefile-mobile.iml" filepath="$PROJECT_DIR$/android-studio-workspace-eyefile-mobile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/eyefile-mobile.iml" filepath="$PROJECT_DIR$/eyefile-mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="eyefile-mobile/app" />
+      <module fileurl="file://$PROJECT_DIR$/eyefile-mobile.iml" filepath="$PROJECT_DIR$/eyefile-mobile.iml" group="eyefile-mobile" />
       <module fileurl="file://$PROJECT_DIR$/app/eyefile-mobile-app.iml" filepath="$PROJECT_DIR$/app/eyefile-mobile-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/margaret-core/eyefile-mobile-margaret-core.iml" filepath="$PROJECT_DIR$/margaret-core/eyefile-mobile-margaret-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/margaret-core/margaret-core.iml" filepath="$PROJECT_DIR$/margaret-core/margaret-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/margaret-core/margaret-core.iml" filepath="$PROJECT_DIR$/margaret-core/margaret-core.iml" group="eyefile-mobile/margaret-core" />
     </modules>
   </component>
 </project>
